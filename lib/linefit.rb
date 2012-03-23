@@ -427,7 +427,7 @@ private
       end
       sumw = numNonZero = 0
       weights.each do |weight|
-         if z < 0
+         if weight < 0
             puts "Weights must be non-negative numbers!" unless @hush
             return FALSE
          end
