@@ -438,7 +438,7 @@ private
          puts "At least two weights must be nonzero!" unless @hush
          return FALSE
       end
-      factor = weights.length / sumw
+      factor = weights.length.to_f / sumw
       weights.collect! {|weight| weight * factor}
       @weight = weights
       return TRUE
