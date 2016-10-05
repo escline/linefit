@@ -143,7 +143,7 @@ class TestLineFit < Test::Unit::TestCase
             8.013230074218882,
             -1.700548564052042,
             12.585672797677944,
-            12.87189415940793] 
+            12.87189415940793]
         assert_equal(correct_residuals, residuals, 'Residuals calc error')
 
         assert_equal(2.1157840392583114, varianceIntercept, 'Variance Intercept calc error')
@@ -324,7 +324,7 @@ class TestLineFit < Test::Unit::TestCase
             8.013230074218882,
             -1.700548564052042,
             12.585672797677944,
-            12.87189415940793] 
+            12.87189415940793]
         assert_equal(correct_residuals, residuals, 'Residuals calc error')
 
         assert_equal(2.1157840392583114, varianceIntercept, 'Variance Intercept calc error')
