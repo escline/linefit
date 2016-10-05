@@ -237,7 +237,7 @@ METHODS
     do multiple line fits using the same weights, the weights must be passed
     to each call to setData().
 
-    The method will return flase if the array lengths don't match, there are
+    The method will return false if the array lengths don't match, there are
     less than two data points, any weights are negative or less than two of
     the weights are nonzero. If the new() method was called with validate =
     1, the method will also verify that the data and weights are valid

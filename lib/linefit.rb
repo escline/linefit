@@ -26,7 +26,7 @@
 #
 # == Authors
 # Eric Cline,  escline(at)gmail(dot)com,       ( Ruby Port, LineFit#forecast )
-#    
+#
 #
 # Richard Anderson                           ( Statistics::LineFit Perl module )
 # http://search.cpan.org/~randerson/Statistics-LineFit-0.07
@@ -35,7 +35,7 @@
 #     Mendenhall, W., and Sincich, T.L., 2003, A Second Course in Statistics:
 #       Regression Analysis, 6th ed., Prentice Hall.
 #     Press, W. H., Flannery, B. P., Teukolsky, S. A., Vetterling, W. T., 1992,
-#       Numerical Recipes in C : The Art of Scientific Computing, 2nd ed., 
+#       Numerical Recipes in C : The Art of Scientific Computing, 2nd ed.,
 #       Cambridge University Press.
 #
 # == License
@@ -55,7 +55,7 @@ class LineFit
    #           = 0 -> Don't verify input data (default, faster execution)
    #  hush     = 1 -> Suppress error messages
    #           = 0 -> Enable error messages (default)
-   
+
    def initialize(validate = FALSE, hush = FALSE)
       @doneRegress = FALSE
       @gotData = FALSE
@@ -135,12 +135,12 @@ class LineFit
       end
       return @predictedYs
    end
-   
+
    ############################################################################
    # Return the independent (Y) value, by using a dependent (X) value
    #
    #  forecasted_y = linefit.forecast(x_value)
-   #  
+   #
    # Will use the slope and intercept to calculate the Y value along the line
    # at the x value. Note: value returned only as good as the line fit.
    #
@@ -251,7 +251,7 @@ class LineFit
    # numbers. Once you successfully call setData(), the next call to any
    # method other than new() or setData() invokes the regression.
    #
-   def setData(x, y, weights = nil)
+   def setData(x, y = nil, weights = nil)
       @doneRegress = FALSE
       @x = @y = @numxy = @weight = \
          @intercept = @slope = @rSquared = \
@@ -264,13 +264,13 @@ class LineFit
          return FALSE
       end
       if x[0].class == Array
-         @numxy = x[0].length
+         @numxy = x.length
          setWeights(y) or return FALSE
          @x = []
          @y = []
          x.each do |xy|
-            @x = xy[0]
-            @y = xy[1]
+            @x << xy[0]
+            @y << xy[1]
          end
       else
          if x.length != y.length
