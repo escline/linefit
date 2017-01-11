@@ -466,7 +466,7 @@ private
             return FALSE
          end
          if @x[i] !~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/
-            puts "Input x[#{i}] is not a number: #{x[i]}" unless @hush
+            puts "Input x[#{i}] is not a number: #{@x[i]}" unless @hush
             return FALSE
          end
          unless @y[i]
@@ -474,7 +474,7 @@ private
             return FALSE
          end
          if @y[i] !~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/
-            puts "Input y[#{i}] is not a number: #{y[i]}" unless @hush
+            puts "Input y[#{i}] is not a number: #{@y[i]}" unless @hush
             return FALSE
          end
       end
