@@ -56,9 +56,9 @@ class LineFit
    #  hush     = 1 -> Suppress error messages
    #           = 0 -> Enable error messages (default)
 
-   def initialize(validate = FALSE, hush = FALSE)
-      @doneRegress = FALSE
-      @gotData = FALSE
+   def initialize(validate = false, hush = false)
+      @doneRegress = false
+      @gotData = false
       @hush = hush
       @validate = validate
    end
@@ -162,7 +162,7 @@ class LineFit
       return @regressOK if @doneRegress
       unless @gotData
          puts "No valid data input - can't do regression" unless @hush
-         return FALSE
+         return false
       end
       sumx, sumy, @sumxx, sumyy, sumxy = computeSums()
       @sumSqDevx = @sumxx - sumx ** 2 / @numxy
@@ -171,13 +171,13 @@ class LineFit
          @sumSqDevxy = sumxy - sumx * sumy / @numxy
          @slope      = @sumSqDevxy / @sumSqDevx
          @intercept  = (sumy - @slope * sumx) / @numxy
-         @regressOK = TRUE
+         @regressOK = true
       else
          puts "Can't fit line when x values are all equal" unless @hush
          @sumxx = @sumSqDevx = nil
-         @regressOK = FALSE
+         @regressOK = false
       end
-      @doneRegress = TRUE
+      @doneRegress = true
       return @regressOK
    end
 
@@ -252,7 +252,7 @@ class LineFit
    # method other than new() or setData() invokes the regression.
    #
    def setData(x, y = nil, weights = nil)
-      @doneRegress = FALSE
+      @doneRegress = false
       @x = @y = @numxy = @weight = \
          @intercept = @slope = @rSquared = \
          @sigma = @durbinWatson = @meanSqError = \
@@ -261,11 +261,11 @@ class LineFit
          @sumSqDevx = @sumSqDevy = @sumSqDevxy = nil
       if x.length < 2
          puts "Must input more than one data point!" unless @hush
-         return FALSE
+         return false
       end
       if x[0].class == Array
          @numxy = x.length
-         setWeights(y) or return FALSE
+         setWeights(y) or return false
          @x = []
          @y = []
          x.each do |xy|
@@ -275,21 +275,21 @@ class LineFit
       else
          if x.length != y.length
             puts "Length of x and y arrays must be equal!" unless @hush
-            return FALSE
+            return false
          end
          @numxy = x.length
-         setWeights(weights) or return FALSE
+         setWeights(weights) or return false
          @x = x
          @y = y
       end
       if @validate
          unless validData()
             @x = @y = @weights = @numxy = nil
-            return FALSE
+            return false
          end
       end
-      @gotData = TRUE
-      return TRUE
+      @gotData = true
+      return true
    end
 
    ############################################################################
@@ -417,31 +417,31 @@ private
    # Normalize and initialize line fit weighting factors
    #
    def setWeights(weights = nil)
-      return TRUE unless weights
+      return true unless weights
       if weights.length != @numxy
          puts "Length of weight array must equal length of data array!" unless @hush
-         return FALSE
+         return false
       end
       if @validate
-         validWeights(weights) or return FALSE
+         validWeights(weights) or return false
       end
       sumw = numNonZero = 0
       weights.each do |weight|
          if weight < 0
             puts "Weights must be non-negative numbers!" unless @hush
-            return FALSE
+            return false
          end
          sumw += weight
          numNonZero += 1 if weight != 0
       end
       if numNonZero < 2
          puts "At least two weights must be nonzero!" unless @hush
-         return FALSE
+         return false
       end
       factor = weights.length.to_f / sumw
       weights.collect! {|weight| weight * factor}
       @weight = weights
-      return TRUE
+      return true
    end
 
    ############################################################################
@@ -463,22 +463,22 @@ private
       0.upto(@numxy-1) do |i|
          unless @x[i]
             puts "Input x[#{i}] is not defined" unless @hush
-            return FALSE
+            return false
          end
          if @x[i] !~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/
             puts "Input x[#{i}] is not a number: #{@x[i]}" unless @hush
-            return FALSE
+            return false
          end
          unless @y[i]
             puts "Input y[#{i}] is not defined" unless @hush
-            return FALSE
+            return false
          end
          if @y[i] !~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/
             puts "Input y[#{i}] is not a number: #{@y[i]}" unless @hush
-            return FALSE
+            return false
          end
       end
-      return TRUE
+      return true
    end
 
    ############################################################################
@@ -488,14 +488,14 @@ private
       0.upto(weights.length) do |i|
          unless weights[i]
             puts "Input weights[#{i}] is not defined" unless @hush
-            return FALSE
+            return false
          end
          if weights[i] !~ /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/
             puts "Input weights[#{i}] is not a number: #{weights[i]}" unless @hush
-            return FALSE
+            return false
          end
       end
-      return TRUE
+      return true
    end
 
 end
